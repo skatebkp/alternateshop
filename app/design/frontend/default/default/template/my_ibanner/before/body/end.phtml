@@ -1,0 +1,15 @@
+<?php $_helper = $this->helper('ibanner') ?>
+<script language="javascript">
+//<![CDATA[
+jQuery(document).ready(function (){
+    jQuery("#pikame").PikaChoose({
+        autoPlay: Boolean("<?php echo $_helper->getAutoPlay() ?>"),
+        hoverPause: Boolean("<?php echo $_helper->getHoverPause() ?>"),
+        stopOnClick: Boolean("<?php echo $_helper->getStopOnClick() ?>"),
+        speed: parseInt("<?php echo $_helper->getSpeed() ?>"),
+        animationSpeed: parseInt("<?php echo $_helper->getAnimationSpeed() ?>"),
+        transition:[parseInt("<?php echo $_helper->getTransition() ?>")]
+    });
+});
+//]]>
+</script>

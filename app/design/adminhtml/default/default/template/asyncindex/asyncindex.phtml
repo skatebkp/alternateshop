@@ -1,0 +1,46 @@
+<?php
+$_collection = $this->getAsyncCollection();
+?>
+<br/>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3>
+                <?php echo Mage::helper('asyncindex')->__('Asynchronous Re-indexing Management') ?> (<?php echo count($_collection) ?>)
+                <small style="color: #999; font-size: 0.8em;">Asynchronous Re-indexing saved <?php echo $this->getSavedTime() ?> of your time</small>
+            </h3></td>
+            <?php if (count($_collection) > 0): ?>
+                <td class="form-buttons"><button onclick="setLocation('<?php echo $this->getUrl('*/asyncIndex/process')?>')" type="button" class="scalable delete"><span><?php echo Mage::helper('asyncindex')->__('Process asynchronous queue') ?></span></button></td>
+            <?php endif; ?>
+        </tr>
+    </table>
+</div>
+
+<?php if (count($_collection) > 0): ?>
+    <div class="grid">
+        <table class="data" cellspacing="0">
+            <thead>
+                <tr class="headings">
+                    <th class="no-link"><span class="nobr"><?php echo Mage::helper('asyncindex')->__('Index') ?></span></th>
+                    <th class="no-link"><span class="nobr"><?php echo Mage::helper('asyncindex')->__('Type') ?></span></th>
+                    <th class="no-link"><span class="nobr"><?php echo Mage::helper('asyncindex')->__('Entity') ?></span></th>
+                    <th class="no-link last"><span class="nobr"><?php echo Mage::helper('asyncindex')->__('Entity Pk') ?></span></th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php $i = 0;?>
+            <?php foreach ($_collection as $_async): ?>
+                <tr <?php echo ($i++ % 2) ? '' : 'class="even"'; ?>>
+                    <td><?php echo $_async->getName() ?> (<?php echo $_async->getCode() ?>)</td>
+                    <td><?php echo $_async->getType() ?></td>
+                    <td><?php echo $_async->getEntity() ?></td>
+                    <td class="a-left"><?php echo $_async->getEntityPk() ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+<?php else: ?>
+    <?php echo Mage::helper('asyncindex')->__('No pending queue entries available.') ?>
+<?php endif; ?>

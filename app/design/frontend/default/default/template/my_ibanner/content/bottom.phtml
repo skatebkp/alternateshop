@@ -1,0 +1,20 @@
+<?php $banner = $this->getBanner(); ?>
+<?php if (is_object($banner)) : ?>
+    <?php $_helper = $this->helper('ibanner') ?>
+	<?php $_imageList = $banner->getImageList(); ?>
+    <?php if (is_array($_imageList) and sizeof($_imageList) > 0) : ?>
+    <div class="ibanner ibanner-content-bottom">
+        <div class="pikachoose pikachoose-caption-<?php echo $_helper->getCaptionPosition() ?>">
+            <ul id="pikame">
+                <?php foreach ($_imageList as &$_item) : ?>
+                    <?php if ($_helper->getAutoResize()) : ?>
+                        <li><a href="#"><img src="<?php echo $this->helper('ibanner/image')->init($_item['file'])->resize($_helper->getWidth(), $_helper->getHeight()) ?>"/></a><span><?php echo $_item['label']; ?></span></li>
+                    <?php else : ?>
+                        <li><a href="#"><img src="<?php echo $_helper->getImageUrl($_item['file']) ?>"/></a><span><?php echo $_item['label']; ?></span></li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+    <?php endif; ?>
+<?php endif; ?>

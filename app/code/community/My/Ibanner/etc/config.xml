@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    My
+ * @package     My_Ibanner
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <My_Ibanner>
+            <version>1.0.0</version>
+        </My_Ibanner>
+    </modules>
+    <frontend>
+        <routers>
+            <ibanner>
+                <use>standard</use>
+                <args>
+                    <module>My_Ibanner</module>
+                    <frontName>ibanner</frontName>
+                </args>
+            </ibanner>
+        </routers>
+        <layout>
+            <updates>
+                <ibanner>
+                    <file>my_ibanner.xml</file>
+                </ibanner>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+            <ibanner>
+                <use>admin</use>
+                <args>
+                    <module>My_Ibanner</module>
+                    <frontName>ibanner</frontName>
+                </args>
+            </ibanner>
+        </routers>
+    </admin>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <ibanner>
+                            <title>I-Banner</title>
+                            <sort_order>50</sort_order>
+                            <children>
+                                <index>
+                                    <title>Manage I-Banner</title>
+                                    <sort_order>0</sort_order>
+                                </index>
+                                <add>
+                                    <title>Add I-Banner</title>
+                                    <sort_order>1</sort_order>
+                                </add>
+                            </children>
+                        </ibanner>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <ibanner>
+                                            <title>I-Banner Section</title>
+                                        </ibanner>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <menu>
+            <ibanner module="ibanner">
+                <title>I-Banner</title>
+                <sort_order>50</sort_order>
+                <children>
+                    <add module="ibanner">
+                        <title>Add I-Banner</title>
+                        <sort_order>0</sort_order>
+                        <action>ibanner/adminhtml_banner/add</action>
+                    </add>
+                    <index module="ibanner">
+                        <title>Manage I-Banner</title>
+                        <sort_order>1</sort_order>
+                        <action>ibanner/adminhtml_banner/index</action>
+                    </index>
+                    <config module="ibanner">
+                        <title>Configuration</title>
+                        <sort_order>2</sort_order>
+                        <action>adminhtml/system_config/edit/section/ibanner</action>
+                    </config>
+                </children>
+            </ibanner>
+        </menu>
+        <layout>
+            <updates>
+                <ibanner>
+                    <file>my_ibanner.xml</file>
+                </ibanner>
+            </updates>
+        </layout>
+    </adminhtml>
+    <global>
+        <blocks>
+            <ibanner>
+                <class>My_Ibanner_Block</class>
+            </ibanner>
+        </blocks>
+        <models>
+            <ibanner>
+                <class>My_Ibanner_Model</class>
+                <resourceModel>ibanner_mysql4</resourceModel>
+            </ibanner>
+            <ibanner_mysql4>
+                <class>My_Ibanner_Model_Mysql4</class>
+                <entities>
+                    <banner>
+                        <table>my_ibanner_banner</table>
+                    </banner>
+                    <banner_image>
+                        <table>my_ibanner_banner_image</table>
+                    </banner_image>
+                    <banner_category>
+                        <table>my_ibanner_banner_category</table>
+                    </banner_category>
+                    <banner_page>
+                        <table>my_ibanner_banner_page</table>
+                    </banner_page>
+                    <banner_store>
+                        <table>my_ibanner_banner_store</table>
+                    </banner_store>
+                </entities>
+            </ibanner_mysql4>
+        </models>
+        <helpers>
+            <ibanner>
+                <class>My_Ibanner_Helper</class>
+            </ibanner>
+        </helpers>
+		<events>
+			<controller_action_layout_generate_blocks_after>
+				<observers>
+					<ibanner_layout_generate_observer>
+						<type>singleton</type>
+						<class>ibanner/layout_generate_observer</class>
+						<method>addJqueryLibrary</method>
+					</ibanner_layout_generate_observer>
+				</observers>
+			</controller_action_layout_generate_blocks_after>
+		</events>
+        <resources>
+            <ibanner_setup>
+                <setup>
+                    <module>My_Ibanner</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </ibanner_setup>
+            <ibanner_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </ibanner_write>
+            <ibanner_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </ibanner_read>
+        </resources>
+    </global>
+    <default>
+        <ibanner>
+            <general>
+                <enable_jquery>1</enable_jquery>
+                <auto_resize>0</auto_resize>
+                <transition>-1</transition>
+                <auto_play>1</auto_play>
+                <caption_position>right</caption_position>
+                <hover_pause>1</hover_pause>
+                <stop_on_click>1</stop_on_click>
+                <speed>5000</speed>
+                <animation_speed>800</animation_speed>
+            </general>
+        </ibanner>
+    </default>
+</config>
